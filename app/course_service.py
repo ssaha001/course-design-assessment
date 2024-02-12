@@ -38,20 +38,6 @@ class CourseService(ABC):
     pass
 
   @abstractmethod
-  def get_assignment_by_id(self, course_id, assignment_id):
-    """
-    Returns an assignment for a course by its id.
-    """
-    pass
-
-  @abstractmethod
-  def delete_assignment(self, course_id, assignment_id):
-    """
-    Deletes an assignment for a course by its id.
-    """
-    pass
-
-  @abstractmethod
   def enroll_student(self, course_id, student_id):
     """
     Enrolls a student in a course.
