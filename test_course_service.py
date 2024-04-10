@@ -91,11 +91,14 @@ def test_get_grades():
     course_service.submit_assignment(1,6,1,0)
     course_service.submit_assignment(1,6,2,0)
     course_service.submit_assignment(1,6,3,7)
-    
+
     assert(course_service.get_student_grade_avg(1,1)) == 30, "Test get_student_grade_avg failed"
     assert(course_service.get_assignment_grade_avg(1,1)) == 16, "Test get_assignment_grade_avg failed"
     assert(course_service.get_top_five_students(1)) == [5,2,3,1,4], "Test get_top_five_students failed"
     assert(course_service.get_top_five_students(2)) == [0], "Test get_top_five_students failed"
+    assert(course_service.get_student_marks_for_assignment(1,6,3)) == 7, "Test get_student_marks_for_assignment failed"
+    assert(course_service.get_student_marks_for_assignment(1,6,7)) == "Grades for this assignment doesn't exist", "Test get_student_marks_for_assignment failed"
+
 try:
     test_create_course()
     test_get_courses()

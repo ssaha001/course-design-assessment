@@ -2,7 +2,7 @@ from app.course_service import CourseService
 from typing import List, Any
 import math
 import statistics
-
+from utills.utils import merge_sort
 
 class CourseServiceImpl(CourseService):
     """
@@ -10,6 +10,10 @@ class CourseServiceImpl(CourseService):
     """
 
     def __init__(self):
+        '''
+        Creating two tables courses and assignments. Cause a single table might be confusing.
+        Students will be added to the courses table.
+        '''
         self.courses = {}
         self.assignments = {}
         self.assignments_counter = 0
@@ -126,7 +130,16 @@ class CourseServiceImpl(CourseService):
         """
         if course_id not in self.courses or len(self.courses[course_id]["students"].keys())==0:
             return [0]
-        averages = {key: statistics.mean(values or [0]) for key, values in self.courses[course_id]["students"].items()}
-        sorted_data = dict(sorted(averages.items(), key=lambda x: -x[1]))
-        return list(sorted_data.keys())[:5]
+        data=[]
+        for key, values in self.courses[course_id]["students"].items():
+            data.append({'student_id':key, 'mean_grade':statistics.mean(values)})
+        merge_sort(data,lambda val1, val2: val1['mean_grade']>val2['mean_grade'])
+        return [val['student_id'] for val in data[:5]]
+
+    # An additional function
+    def get_student_marks_for_assignment(self, course_id, student_id, assignment_id) -> float:
+        if course_id not in self.courses or student_id not in self.courses[course_id]["students"] or len(self.courses[course_id]["students"][student_id])<assignment_id:
+            return "Grades for this assignment doesn't exist"
+        else:
+            return self.courses[course_id]["students"][student_id][assignment_id-1]
 
