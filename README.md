@@ -46,7 +46,7 @@ You can submit your assessment by either way:
 
 - To run the pre built tests in (test_course_service.py), execute this command:
   ```bash
-  test_course_service.py
+  python test_course_service.py
   ```
 - To execute the code while interacting with it, you can run this command:
   ```bash
