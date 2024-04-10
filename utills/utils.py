@@ -1,6 +1,6 @@
 def merge_sort(data, comparison_logic):
     if len(data) > 1:
-        mid = len(data)//2
+        mid = len(data) // 2
         first_half = data[:mid]
         second_half = data[mid:]
 
@@ -18,7 +18,7 @@ def merge_sort(data, comparison_logic):
                 data[k] = second_half[j]
                 j += 1
             k += 1
-        
+
         # Add remaining values to the list
         while i < len(first_half):
             data[k] = first_half[i]
