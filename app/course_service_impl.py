@@ -5,14 +5,10 @@ import statistics
 from utills.utils import merge_sort
 
 class CourseServiceImpl(CourseService):
-    """
-    Please implement the CourseService interface according to the requirements.
-    """
-
     def __init__(self):
         '''
         Creating two tables courses and assignments. Cause a single table might be confusing.
-        Students will be added to the courses table.
+        Students will be added to the courses table along with their grades for each assignment.
         '''
         self.courses = {}
         self.assignments = {}
@@ -65,6 +61,7 @@ class CourseServiceImpl(CourseService):
         """
         if course_id in self.courses:
             self.assignments_counter += 1
+            # Adding total_grade and grade_count to calculate average quicker.
             self.assignments[self.assignments_counter] = {"name": assignment_name, "course": course_id, "grades":[], "total_grade":0, "grade_count":0}
             return self.assignments_counter
         else:
@@ -138,6 +135,9 @@ class CourseServiceImpl(CourseService):
 
     # An additional function
     def get_student_marks_for_assignment(self, course_id, student_id, assignment_id) -> float:
+        """
+        Returns a studnt's grade for a particular assignment in a specific course, if it exists.
+        """
         if course_id not in self.courses or student_id not in self.courses[course_id]["students"] or len(self.courses[course_id]["students"][student_id])<assignment_id:
             return "Grades for this assignment doesn't exist"
         else:
